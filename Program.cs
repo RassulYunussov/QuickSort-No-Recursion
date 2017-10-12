@@ -6,28 +6,18 @@ namespace exp
 {
     class Program
     {
-        class Borders
-        {
-            public int Left { get; set; }
-            public int Right { get; set; }
-            public Borders(int left,int right)
-            {
-                Left = left;
-                Right = right;
-            }
-        }
-       static void QuickSort(int [] src)
+        static void QuickSort(int [] src)
     	{
-			Stack<Borders> brds = new Stack<Borders>();
-            brds.Push(new Borders(0,src.Length-1));
+			Stack<(int Left,int Right)> brds = new Stack<(int,int)>();
+            brds.Push((0,src.Length-1));
 			while(brds.Count>0)
 			{
-				Borders b= brds.Pop();
+				var b= brds.Pop();
 				int index = partition(b.Left,b.Right);
 				if(index<b.Right)
-					brds.Push(new Borders(index,b.Right));
+					brds.Push((index,b.Right));
 				if(b.Left<index-1)
-					brds.Push(new Borders(b.Left,index-1));
+					brds.Push((b.Left,index-1));
 			}
 			void swap(ref int lv,ref int rv)
 			{
@@ -52,9 +42,6 @@ namespace exp
 				return i;
 			}	
     	}
-
-      
-
         static void Main(string[] args)
         {
             Random r = new Random();
